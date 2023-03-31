@@ -22,5 +22,7 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 0,
     'react/function-component-definition': 0,
+    'eslint-disable import': 0,
+    'prefer-default-export': 0,
   },
 };

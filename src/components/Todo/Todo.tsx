@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { GrEdit } from 'react-icons/gr';
 import { MdLibraryAdd } from 'react-icons/md';
-import { RiDeleteBin5Line } from 'react-icons/ri';
+import TodoItem from '../TodoIitem/TodoItem';
 
 const Todo: React.FC = () => {
   const [height, setHeight] = useState<any | null>(null);
@@ -50,76 +49,13 @@ const Todo: React.FC = () => {
             height >= 480 ? 'max-h-[480px] overflow-y-auto px-3' : ''
           }`}
         >
-          <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
-            <div className="flex items-center">
-              <input type="checkbox" className="mr-2 w-5 h-5 accent-red-600" />
-              <p className="text-[18px]">Task 1</p>
-            </div>
-            <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
-              <GrEdit className="" />
-              <RiDeleteBin5Line />
-            </div>
-          </li>
-          <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
-            <div className="flex items-center">
-              <input type="checkbox" className="mr-2 w-5 h-5 accent-red-600" />
-              <p className="text-[18px]">Task 1</p>
-            </div>
-            <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
-              <GrEdit className="" />
-              <RiDeleteBin5Line />
-            </div>
-          </li>
-          <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
-            <div className="flex items-center">
-              <input type="checkbox" className="mr-2 w-5 h-5 accent-red-600" />
-              <p className="text-[18px]">Task 1</p>
-            </div>
-            <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
-              <GrEdit className="hover:text-gray-400" />
-              <RiDeleteBin5Line />
-            </div>
-          </li>
-          <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
-            <div className="flex items-center">
-              <input type="checkbox" className="mr-2 w-5 h-5 accent-red-600" />
-              <p className="text-[18px]">Task 1</p>
-            </div>
-            <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
-              <GrEdit className="" />
-              <RiDeleteBin5Line />
-            </div>
-          </li>
-          <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
-            <div className="flex items-center">
-              <input type="checkbox" className="mr-2 w-5 h-5 accent-red-600" />
-              <p className="text-[18px]">Task 1</p>
-            </div>
-            <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
-              <GrEdit className="" />
-              <RiDeleteBin5Line />
-            </div>
-          </li>
-          <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
-            <div className="flex items-center">
-              <input type="checkbox" className="mr-2 w-5 h-5 accent-red-600" />
-              <p className="text-[18px]">Task 1</p>
-            </div>
-            <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
-              <GrEdit className="" />
-              <RiDeleteBin5Line />
-            </div>
-          </li>
-          <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
-            <div className="flex items-center">
-              <input type="checkbox" className="mr-2 w-5 h-5 accent-red-600" />
-              <p className="text-[18px]">Task 1</p>
-            </div>
-            <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
-              <GrEdit className="" />
-              <RiDeleteBin5Line />
-            </div>
-          </li>
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
         </ul>
       </div>
     </div>
