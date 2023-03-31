@@ -1,15 +1,43 @@
 import { useEffect, useRef, useState } from 'react';
 import { MdLibraryAdd } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo, fetchTodos } from '../../store/features/todoSlice';
 import TodoItem from '../TodoIitem/TodoItem';
 
 const Todo: React.FC = () => {
   const [height, setHeight] = useState<any | null>(null);
+  const [todoText, setTodoText] = useState<string>('');
+
   const offsetHeightRef = useRef<HTMLInputElement>(null);
+
+  const dispatch = useDispatch();
+  const {
+    entities: todos,
+    isLoading,
+    error,
+  } = useSelector((state) => state?.todo);
 
   useEffect(() => {
     const offsetHeight = offsetHeightRef.current?.offsetHeight;
     setHeight(offsetHeight);
   }, [offsetHeightRef]);
+
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
+
+
+  const textChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTodoText(e.target.value);
+  };
+
+  const addTodoHandler = () => dispatch(addTodo(todoText));
+
+  console.log(todos);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-white w-[44rem] h-fit mt-20 my-32 mx-auto rounded pt-[28px] pb-[30px] shadow-lg shadow-blue-500/40">
@@ -20,8 +48,12 @@ const Todo: React.FC = () => {
           id="text"
           placeholder="Add a New Task"
           className="h-full w-full outline-none rounded border-2 border-[#999] pt-0 pr-5 pb-0 pl-3  text-[25px] focus:border focus:border-sky-500 focus:ring-1 focus:ring-sky-500 placeholder:text-[#bfbfbf]"
+          onChange={textChangeHandler}
         />
-        <MdLibraryAdd className="cursor-pointer text-[25px] absolute top-8 right-8" />
+        <MdLibraryAdd
+          className="cursor-pointer text-[25px] absolute top-8 right-8"
+          onClick={addTodoHandler}
+        />
       </div>
       <div className="border-b-2 flex justify-between items-center py-[18px] px-[25px]">
         <div className=" text-[18px] cursor-pointer text-[#444444]">
@@ -49,13 +81,11 @@ const Todo: React.FC = () => {
             height >= 480 ? 'max-h-[480px] overflow-y-auto px-3' : ''
           }`}
         >
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
+          {todos?.map(
+            (todo: { id: number; title: string; completed: boolean }) => (
+              <TodoItem key={todo.id} todo={todo} />
+            )
+          )}
         </ul>
       </div>
     </div>
