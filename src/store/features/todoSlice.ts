@@ -29,11 +29,13 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (todo, action) => {
-      todo.entities.unshift({
-        id: shortid.generate(),
-        title: action.payload,
-        completed: false,
-      });
+      if (action.payload) {
+        todo.entities.unshift({
+          id: shortid.generate(),
+          title: action.payload,
+          completed: false,
+        });
+      }
 
       localStorage.setItem('todoItems', JSON.stringify(todo.entities));
     },
@@ -56,7 +58,7 @@ export const todoSlice = createSlice({
       const { title, id } = action.payload;
       const todo = todos.entities.find((todo) => todo.id === id);
 
-      if (todo) {
+      if (todo && title) {
         todo.title = title;
         localStorage.setItem('todoItems', JSON.stringify(todos.entities));
       }

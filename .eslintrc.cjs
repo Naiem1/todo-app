@@ -24,5 +24,6 @@ module.exports = {
     'react/function-component-definition': 0,
     'eslint-disable import': 0,
     'prefer-default-export': 0,
+    'no-nested-ternary': 1,
   },
 };
