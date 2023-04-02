@@ -18,6 +18,8 @@ const Todo: React.FC = () => {
     error,
   } = useSelector((state) => state?.todo);
 
+  const localData = useSelector((state) => state?.todo);
+
   useEffect(() => {
     const offsetHeight = offsetHeightRef.current?.offsetHeight;
     setHeight(offsetHeight >= 480);
@@ -71,7 +73,7 @@ const Todo: React.FC = () => {
     filterTodos = todos.filter((todo) => todo.completed);
   }
 
-  console.log('[TODO - filtertodos]', filterTodos);
+  // console.log('[TODO - filtertodos]', filterTodos);
 
   // console.log('filteredTodos>>', filteredTodos);
   return (

@@ -44,7 +44,8 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
     setEditable(false);
   };
 
-  // console.log(editedText);
+  // console.log('[TaskItem - editText]', editedText);
+  // console.log('[TaskItem - title]', props.todo.title);
 
   return (
     <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
