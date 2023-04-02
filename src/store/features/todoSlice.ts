@@ -37,7 +37,20 @@ export const todoSlice = createSlice({
 
       todo.entities.splice(taskIndex, 1);
     },
-    editTodo: (state, action) => {},
+    completedTodo: (todos, action) => {
+      const todo = todos?.entities?.find((todo) => todo.id === action.payload);
+      if (todo) {
+        todo.completed = !todo.completed;
+      }
+    },
+    editTodo: (state, action) => {
+      const { title, id } = action.payload;
+      const todo = state.entities.find((todo) => todo.id === id);
+
+      if (todo) {
+        todo.title = title;
+      }
+    },
     deleteAll: (todo, action) => {
       todo.entities = [];
     },
@@ -58,5 +71,6 @@ export const todoSlice = createSlice({
   },
 });
 
-export const { addTodo, deleteTodo, editTodo } = todoSlice.actions;
+export const { addTodo, deleteTodo, editTodo, completedTodo, deleteAll } =
+  todoSlice.actions;
 export default todoSlice.reducer;
