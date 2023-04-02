@@ -4,8 +4,13 @@ import shortid from 'shortid';
 
 const TODO_URL = 'https://jsonplaceholder.typicode.com/todos';
 
+const todos =
+  localStorage.getItem('todoItems') !== null
+    ? JSON.parse(localStorage.getItem('todoItems'))
+    : [];
+
 const initialState = {
-  entities: [],
+  entities: todos,
   isLoading: false,
   error: null,
 };
@@ -24,11 +29,13 @@ export const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (todo, action) => {
-      todo.entities.push({
+      todo.entities.unshift({
         id: shortid.generate(),
         title: action.payload,
         completed: false,
       });
+
+      localStorage.setItem('todoItems', JSON.stringify(todo.entities));
     },
     deleteTodo: (todo, action) => {
       const taskIndex = todo?.entities?.findIndex(
@@ -36,6 +43,8 @@ export const todoSlice = createSlice({
       );
 
       todo.entities.splice(taskIndex, 1);
+
+      localStorage.setItem('todoItems', JSON.stringify(todo.entities));
     },
     completedTodo: (todos, action) => {
       const todo = todos?.entities?.find((todo) => todo.id === action.payload);
@@ -43,16 +52,18 @@ export const todoSlice = createSlice({
         todo.completed = !todo.completed;
       }
     },
-    editTodo: (state, action) => {
+    editTodo: (todos, action) => {
       const { title, id } = action.payload;
-      const todo = state.entities.find((todo) => todo.id === id);
+      const todo = todos.entities.find((todo) => todo.id === id);
 
       if (todo) {
         todo.title = title;
+        localStorage.setItem('todoItems', JSON.stringify(todos.entities));
       }
     },
-    deleteAll: (todo, action) => {
+    deleteAll: (todo, _action) => {
       todo.entities = [];
+      localStorage.setItem('todoItems', JSON.stringify(todo.entities));
     },
   },
   extraReducers: (builder) => {
@@ -62,7 +73,15 @@ export const todoSlice = createSlice({
       })
       .addCase(fetchTodos.fulfilled, (todo, action) => {
         todo.isLoading = false;
-        todo.entities = action.payload;
+
+        if (todo.entities.length === 0) {
+          todo.entities = action.payload;
+        } else {
+          localStorage.setItem(
+            'todoItems',
+            JSON.stringify(todo.entities.map((todo) => todo))
+          );
+        }
       })
       .addCase(fetchTodos.rejected, (todo, action) => {
         todo.isLoading = false;
