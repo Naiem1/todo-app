@@ -44,9 +44,6 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
     setEditable(false);
   };
 
-  // console.log('[TaskItem - editText]', editedText);
-  // console.log('[TaskItem - title]', props.todo.title);
-
   return (
     <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
       {editable === true ? (
@@ -77,12 +74,21 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
       {editable === true ? (
         <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
           <MdOutlineCancel onClick={() => setEditable(false)} />
-          <GrDocumentUpdate onClick={todoUpdateHandler} />
+          <button
+            className={`${!editedText && 'hover: cursor-not-allowed'}`}
+            type="button"
+            disabled={!editedText && true}
+            onClick={todoUpdateHandler}
+          >
+            <GrDocumentUpdate />
+          </button>
         </div>
       ) : (
         <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
           {!props.todo.completed && (
-            <GrEdit className="" onClick={todoEditHandler} />
+            <button type="button" className="">
+              <GrEdit className="" onClick={todoEditHandler} />
+            </button>
           )}
           <RiDeleteBin5Line onClick={() => todoDeleteHandler(props.todo.id)} />
         </div>

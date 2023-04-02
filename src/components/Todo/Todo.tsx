@@ -18,8 +18,6 @@ const Todo: React.FC = () => {
     error,
   } = useSelector((state) => state?.todo);
 
-  const localData = useSelector((state) => state?.todo);
-
   useEffect(() => {
     const offsetHeight = offsetHeightRef.current?.offsetHeight;
     setHeight(offsetHeight >= 480);
@@ -40,13 +38,6 @@ const Todo: React.FC = () => {
 
   const todoAllDelete = () => dispatch(deleteAll());
 
-  // const filterTodos = todos.filter((todo) => todo);
-  // const handleFilterChange = () => {
-
-  // }
-
-  // console.log(filterData);
-  // console.log(todos);
   let filteredTodos = todos;
   const todoFilterHandler = (filterText: string) => {
     dispatch(setFilter(filterText));
@@ -58,10 +49,6 @@ const Todo: React.FC = () => {
     } else {
       filteredTodos = todos;
     }
-
-    // console.log(filteredTodos);
-
-    // console.log('[Filter-Data]', filterData);
   };
 
   let filterTodos = todos;
@@ -73,9 +60,6 @@ const Todo: React.FC = () => {
     filterTodos = todos.filter((todo) => todo.completed);
   }
 
-  // console.log('[TODO - filtertodos]', filterTodos);
-
-  // console.log('filteredTodos>>', filteredTodos);
   return (
     <div className="bg-white w-[44rem] h-fit mt-16 my-32 mx-auto rounded pt-[28px] pb-[30px] shadow-lg shadow-blue-500/40">
       <div className="h-[93px] p-[25px] relative">
@@ -86,67 +70,80 @@ const Todo: React.FC = () => {
           onChange={textChangeHandler}
           value={todoText}
         />
-        <MdLibraryAdd
-          className="cursor-pointer text-[25px] absolute top-8 right-8"
+        <button
           onClick={addTodoHandler}
-        />
+          type="button"
+          className={`cursor-pointer text-[25px] absolute top-8 right-8 ${
+            !todoText && 'hover: cursor-not-allowed'
+          }`}
+          disabled={!todoText && true}
+        >
+          <MdLibraryAdd />
+        </button>
       </div>
+
       {isLoading ? (
         <h1 className="text-red-700 text-2xl text-center">Loading...</h1>
       ) : (
-        <div className="border-b-2 flex justify-between items-center py-[18px] px-[25px]">
-          <div className=" text-[18px] cursor-pointer text-[#444444]">
-            <span
-              role="button"
-              className={`my-0 mx-[8px] border hover:border-red-400 py-1 px-3 rounded-lg ${
-                filterData === 'all' ? 'bg-red-600 text-white' : ''
+        <div>
+          <div className="border-b-2 flex justify-between items-center py-[18px] px-[25px]">
+            <div className=" text-[18px] cursor-pointer text-[#444444]">
+              <button
+                type="button"
+                className={`my-0 mx-[8px] border hover:border-red-400 py-1 px-3 rounded-lg ${
+                  filterData === 'all' ? 'bg-red-600 text-white' : ''
+                }`}
+                onClick={() => todoFilterHandler('all')}
+              >
+                All
+              </button>
+              <button
+                type="button"
+                className={`my-0 mx-[8px] border hover:border-red-400 py-1 px-3 rounded-lg ${
+                  filterData === 'pending' ? 'bg-red-600 text-white' : ''
+                }`}
+                onClick={() => todoFilterHandler('pending')}
+              >
+                Pending
+              </button>
+              <button
+                type="button"
+                className={`my-0 mx-[8px] border hover:border-red-400 py-1 px-3 rounded-lg  ${
+                  filterData === 'completed' ? 'bg-red-600 text-white' : ''
+                }`}
+                onClick={() => todoFilterHandler('completed')}
+              >
+                Complete
+              </button>
+            </div>
+            <button
+              type="button"
+              className={`bg-red-400 border-none outline-none rounded-md text-white cursor-pointer font-[13px] py-[7px] px-[13px] tracking-[0.3px] ${
+                !todos.length && 'bg-red-200 hover: cursor-not-allowed'
               }`}
-              onClick={() => todoFilterHandler('all')}
+              onClick={todoAllDelete}
+              disabled={!todos.length && true}
             >
-              All
-            </span>
-            <span
-              role="button"
-              className={`my-0 mx-[8px] border hover:border-red-400 py-1 px-3 rounded-lg ${
-                filterData === 'pending' ? 'bg-red-600 text-white' : ''
-              }`}
-              onClick={() => todoFilterHandler('pending')}
-            >
-              Pending
-            </span>
-            <span
-              role="button"
-              className={`my-0 mx-[8px] border hover:border-red-400 py-1 px-3 rounded-lg  ${
-                filterData === 'completed' ? 'bg-red-600 text-white' : ''
-              }`}
-              onClick={() => todoFilterHandler('completed')}
-            >
-              Complete
-            </span>
+              Clear All
+            </button>
           </div>
-          <button
-            type="button"
-            className=" bg-red-400 border-none outline-none rounded-md text-white cursor-pointer font-[13px] py-[7px] px-[13px] tracking-[0.3px]"
-            onClick={todoAllDelete}
-          >
-            Clear All
-          </button>
+
+          <div className="mt-[20px] mr-[5px] pt-0 pr-[20px] pb-[10px] pl-[25px]">
+            <ul
+              ref={offsetHeightRef}
+              className={`${
+                height === true ? 'max-h-[480px] overflow-y-auto px-3' : ''
+              }`}
+            >
+              {filterTodos?.map(
+                (todo: { id: number; title: string; completed: boolean }) => (
+                  <TodoItem key={todo.id} todo={todo} />
+                )
+              )}
+            </ul>
+          </div>
         </div>
       )}
-      <div className="mt-[20px] mr-[5px] pt-0 pr-[20px] pb-[10px] pl-[25px]">
-        <ul
-          ref={offsetHeightRef}
-          className={`${
-            height === true ? 'max-h-[480px] overflow-y-auto px-3' : ''
-          }`}
-        >
-          {filterTodos?.map(
-            (todo: { id: number; title: string; completed: boolean }) => (
-              <TodoItem key={todo.id} todo={todo} />
-            )
-          )}
-        </ul>
-      </div>
       <div>
         {filterData === 'completed' ? (
           <span className=" ml-8 text-red-700 text-lg">Completed Todos:</span>
