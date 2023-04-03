@@ -4,7 +4,7 @@ import { RiDeleteBin5Line } from 'react-icons/ri';
 import { useTodoItem } from '../../hooks/useTodoItem';
 
 interface TodoItemProps {
-  todo: { id: string; title: string; completed: boolean };
+  todo: { id: number | string; title: string; completed: boolean };
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {

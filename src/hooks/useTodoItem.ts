@@ -7,7 +7,7 @@ import {
 } from '../store/features/todoSlice';
 
 export const useTodoItem = (todo: {
-  id: string;
+  id: number | string;
   title: string;
   completed: boolean;
 }) => {
@@ -15,7 +15,7 @@ export const useTodoItem = (todo: {
   const [editable, setEditable] = useState<boolean>(false);
   const [editedText, setEditedText] = useState<string>(todo.title);
 
-  const todoDeleteHandler = (id: string) => {
+  const todoDeleteHandler = (id: number | string) => {
     dispatch(deleteTodo(id));
   };
 

@@ -6,20 +6,24 @@ export const useFilter = () => {
   const { todos } = useTodos();
   const dispatch = useDispatch();
 
-  const filterState = useSelector((state: any) => state.filter);
+  const filterState = useSelector((state: { filter: string }) => state?.filter);
 
   const todoFilterHandler = (filterText: string) => {
     dispatch(setFilter(filterText));
   };
 
-  let filteredTodos = todos;
+  let filteredTodos: never[] = todos;
 
   if (filterState === 'all') {
     filteredTodos = todos;
   } else if (filterState === 'pending') {
-    filteredTodos = todos.filter((todo) => !todo.completed);
+    filteredTodos = todos.filter(
+      (todo: { completed: boolean }) => !todo.completed
+    );
   } else if (filterState === 'completed') {
-    filteredTodos = todos.filter((todo) => todo.completed);
+    filteredTodos = todos.filter(
+      (todo: { completed: boolean }) => todo.completed
+    );
   }
 
   return { todoFilterHandler, filteredTodos, filterState };
