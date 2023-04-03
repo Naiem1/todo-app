@@ -7,7 +7,7 @@ class Storage {
   get(key: string) {
     const data =
       localStorage.getItem(key) !== null
-        ? JSON.parse(localStorage.getItem(key))
+        ? JSON.parse(localStorage.getItem(key) as string)
         : [];
 
     return data;

@@ -29,5 +29,6 @@ module.exports = {
     'react/prop-types': 0,
     'react/button-has-type': 0,
     'class-methods-use-this': 0,
+    'no-param-reassign': 0,
   },
 };

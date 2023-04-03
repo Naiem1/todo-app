@@ -10,14 +10,12 @@ const Todo: React.FC = () => {
   const {
     textChangeHandler,
     todoAddHandler,
-    todoAllDelete,
-    todos,
     todoText,
     offsetHeightRef,
     height,
     isLoading,
   } = useTodos();
-  const { filteredTodos, filterState, todoFilterHandler } = useFilter();
+  const { filteredTodos } = useFilter();
 
   return (
     <div className="bg-white w-[44rem] h-fit mt-16 my-32 mx-auto rounded pt-[28px] pb-[30px] shadow-lg shadow-blue-500/40">

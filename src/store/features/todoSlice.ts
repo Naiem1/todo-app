@@ -2,12 +2,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Axios from 'axios';
 import shortid from 'shortid';
+import TODO_URL from '../../api/index';
 
-const TODO_URL = 'https://jsonplaceholder.typicode.com/todos';
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+}
 
 const todos =
   localStorage.getItem('todoItems') !== null
-    ? JSON.parse(localStorage.getItem('todoItems'))
+    ? JSON.parse(localStorage.getItem('todoItems') as string)
     : [];
 
 const initialState = {
@@ -42,7 +47,7 @@ export const todoSlice = createSlice({
     },
     deleteTodo: (todo, action) => {
       const taskIndex = todo?.entities?.findIndex(
-        (todo: { id: string }) => todo.id === action.payload
+        (todo: { id: number }) => todo.id === action.payload
       );
 
       todo.entities.splice(taskIndex, 1);
@@ -50,22 +55,26 @@ export const todoSlice = createSlice({
       localStorage.setItem('todoItems', JSON.stringify(todo.entities));
     },
     completedTodo: (todos, action) => {
-      const todo = todos?.entities?.find((todo) => todo.id === action.payload);
+      const todo = todos?.entities?.find(
+        (todo: { id: number }) => todo.id === action.payload
+      );
       if (todo) {
         todo.completed = !todo.completed;
       }
     },
     editTodo: (todos, action) => {
       const { title, id } = action.payload;
-      const todo = todos.entities.find((todo) => todo.id === id);
+      const todo = todos.entities.find(
+        (todo: { id: number }) => todo.id === id
+      );
 
       if (todo && title) {
         todo.title = title;
         localStorage.setItem('todoItems', JSON.stringify(todos.entities));
       }
     },
-    deleteAll: (todo: any, _action) => {
-      todo.entities = [];
+    deleteAll: (todo: any, action) => {
+      todo.entities = action.payload;
       localStorage.setItem('todoItems', JSON.stringify(todo.entities));
     },
   },
@@ -82,13 +91,13 @@ export const todoSlice = createSlice({
         } else {
           localStorage.setItem(
             'todoItems',
-            JSON.stringify(todo.entities.map((todo) => todo))
+            JSON.stringify(todo.entities.map((todo: Todo) => todo))
           );
         }
       })
       .addCase(fetchTodos.rejected, (todo, action) => {
         todo.isLoading = false;
-        todo.error = action.error.message;
+        // todo.error: nul = action.error.message;
       });
   },
 });
