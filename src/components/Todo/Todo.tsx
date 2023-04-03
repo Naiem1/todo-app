@@ -31,7 +31,7 @@ const Todo: React.FC = () => {
           onClick={todoAddHandler}
           type="button"
           className={`text-[25px] absolute top-8 right-8 text-red-700 ${
-            !todoText && 'cursor-not-allowed text-gray-500'
+            !todoText && 'cursor-not-allowed text-gray-400'
           }`}
           disabled={!todoText && true}
         >
