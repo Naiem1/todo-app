@@ -25,5 +25,9 @@ module.exports = {
     'eslint-disable import': 0,
     'prefer-default-export': 0,
     'no-nested-ternary': 1,
+    'import/prefer-default-export': 0,
+    'react/prop-types': 0,
+    'react/button-has-type': 0,
+    'class-methods-use-this': 0,
   },
 };

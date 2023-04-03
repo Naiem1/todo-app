@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Axios from 'axios';
 import shortid from 'shortid';
@@ -19,7 +20,7 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
   try {
     const response = await Axios.get(TODO_URL);
     return response.data;
-  } catch (err) {
+  } catch (err: any) {
     return err.message;
   }
 });
@@ -41,7 +42,7 @@ export const todoSlice = createSlice({
     },
     deleteTodo: (todo, action) => {
       const taskIndex = todo?.entities?.findIndex(
-        (todo) => todo.id === action.payload
+        (todo: { id: string }) => todo.id === action.payload
       );
 
       todo.entities.splice(taskIndex, 1);
@@ -63,7 +64,7 @@ export const todoSlice = createSlice({
         localStorage.setItem('todoItems', JSON.stringify(todos.entities));
       }
     },
-    deleteAll: (todo, _action) => {
+    deleteAll: (todo: any, _action) => {
       todo.entities = [];
       localStorage.setItem('todoItems', JSON.stringify(todo.entities));
     },
