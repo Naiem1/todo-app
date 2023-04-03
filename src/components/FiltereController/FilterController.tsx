@@ -41,7 +41,7 @@ const FilterController: React.FC = () => {
           <Button
             type="button"
             className={`bg-red-400 border-none outline-none rounded-md text-white font-[13px] py-[7px] px-[13px] tracking-[0.3px] ${
-              !todos.length && 'cursor-not-allowed bg-red-200'
+              !todos.length && 'cursor-not-allowed bg-red-200 opacity-90'
             }`}
             onClick={todoAllDelete}
             disabled={!todos.length && true}
