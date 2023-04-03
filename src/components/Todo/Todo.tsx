@@ -18,12 +18,12 @@ const Todo: React.FC = () => {
   const { filteredTodos } = useFilter();
 
   return (
-    <div className="bg-white w-[44rem] h-fit mt-16 my-32 mx-auto rounded pt-[28px] pb-[30px] shadow-lg shadow-blue-500/40">
+    <div className="todo-container">
       <div className="h-[93px] p-[25px] relative">
         <Input
           type="text"
           placeholder="Add a New Task"
-          className="h-full w-full outline-none rounded border-2 border-[#999] pt-0 pr-5 pb-0 pl-3  text-[25px] focus:border focus:border-sky-500 focus:ring-1 focus:ring-sky-500 placeholder:text-[#bfbfbf]"
+          className="text-input"
           onChange={textChangeHandler}
           value={todoText}
         />

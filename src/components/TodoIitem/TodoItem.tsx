@@ -20,10 +20,10 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   } = useTodoItem(todo);
 
   return (
-    <li className="flex items-center justify-between list-none text-[17px] mb-[18px] pb-[16px] border-b border-[#ccc]">
+    <li className="task-item">
       {editable === true ? (
         <input
-          className="w-5/6 outline-none rounded p-1 border border-2 border-red-600 focus:border focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+          className="edited-input"
           type="text"
           value={editedText}
           onChange={(e) => editedTextChangeHandler(e)}
@@ -43,7 +43,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         </div>
       )}
       {editable === true ? (
-        <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
+        <div className="task-btn">
           <MdOutlineCancel onClick={() => setEditable(false)} />
           <button
             className={`${!editedText && 'hover: cursor-not-allowed'}`}
@@ -55,7 +55,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           </button>
         </div>
       ) : (
-        <div className="flex items-center justify-between w-14 text-xl cursor-pointer">
+        <div className="task-btn">
           {!todo.completed && (
             <button type="button" className="">
               <GrEdit className="" onClick={todoEditHandler} />

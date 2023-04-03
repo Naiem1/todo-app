@@ -9,11 +9,11 @@ const FilterController: React.FC = () => {
   return (
     <div>
       {!isLoading && (
-        <div className="border-b-2 flex justify-between items-center py-[18px] px-[25px]">
+        <div className="controller-container">
           <div className=" text-[18px] cursor-pointer text-[#444444]">
             <Button
               type="button"
-              className={`my-0 mx-[8px] border hover:border-red-400 py-1 px-3 rounded-lg ${
+              className={`controller-btn ${
                 filterState === 'all' ? 'bg-red-600 text-white' : ''
               }`}
               onClick={() => todoFilterHandler('all')}
@@ -22,7 +22,7 @@ const FilterController: React.FC = () => {
 
             <Button
               type="button"
-              className={`my-0 mx-[8px] border hover:border-red-400 py-1 px-3 rounded-lg ${
+              className={`controller-btn ${
                 filterState === 'pending' ? 'bg-red-600 text-white' : ''
               }`}
               onClick={() => todoFilterHandler('pending')}
@@ -31,7 +31,7 @@ const FilterController: React.FC = () => {
 
             <Button
               type="button"
-              className={`my-0 mx-[8px] border hover:border-red-400 py-1 px-3 rounded-lg  ${
+              className={`controller-btn ${
                 filterState === 'completed' ? 'bg-red-600 text-white' : ''
               }`}
               onClick={() => todoFilterHandler('completed')}
@@ -40,7 +40,7 @@ const FilterController: React.FC = () => {
           </div>
           <Button
             type="button"
-            className={`bg-red-400 border-none outline-none rounded-md text-white font-[13px] py-[7px] px-[13px] tracking-[0.3px] ${
+            className={`clear-btn ${
               !todos.length && 'cursor-not-allowed bg-red-300 opacity-90'
             }`}
             onClick={todoAllDelete}
