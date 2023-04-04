@@ -5,7 +5,7 @@
 
 
 
-## This is a simple React todo application that allows users to add, edit, and delete tasks. This application was created using React, TypeScript, and utilizes the React Redux-toolkit for state management. styled using Tailwindcss also use jsonplaceholder Api.
+### This is a simple React todo application that allows users to add, edit, and delete tasks. This application was created using React, TypeScript, and utilizes the React Redux-toolkit for state management. styled using Tailwindcss also use jsonplaceholder Api.
 
 ## Getting Started
 
@@ -59,6 +59,7 @@ The application should now be running at http://localhost:3000 or http://localho
 - 🌪️ filter emojifilter todos with all, pending and completed
 - ▶️ Load the todos from Local Storage when the site is loaded again
 
+---
 - **Add todos:** User can add any valid task
 - **Delete todos:** User can Delete Task
 - **Edit Todo:** User can eidt todo
@@ -83,4 +84,4 @@ This React todo application was built using the following technologies:
 
 **Git:** A free and open-source distributed version control system. Git was used to track changes to the codebase and collaborate with other contributors.
 
-In addition to these technologies, the application uses various React packages and dependencies, such as react-router-dom for routing and react-icons for icons.
+In addition to these technologies, the application uses various React packages and dependencies, such as **react-icons** for icons.
